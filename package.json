@@ -10,8 +10,13 @@
   "author": "Ishan Gawali",
   "license": "MIT",
   "dependencies": {
+    "colors": "^1.4.0",
     "dotenv": "^14.3.2",
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "mongoose": "^6.1.8",
+    "morgan": "^1.10.0",
+    "node-geocoder": "^3.28.0",
+    "slugify": "^1.6.5"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
