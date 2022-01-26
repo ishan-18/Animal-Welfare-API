@@ -1,0 +1,19 @@
+{
+  "name": "edi",
+  "version": "1.0.0",
+  "description": "NGO for Animals Backend API",
+  "main": "server.js",
+  "scripts": {
+    "start": "set NODE_ENV=production && node server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "Ishan Gawali",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^14.3.2",
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
