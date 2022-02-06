@@ -1,12 +1,25 @@
 const NGO = require('../models/ngos');
 const ErrorResponse = require('../utils/errorResponse')
 const asyncHandler = require('../middleware/async')
+const fs = require('fs')
+const path = require('path')
 
 // @desc    GET ALL NGOs
 // @route   GET /api/v1/ngo
 // @access  Public
 exports.getNGOs = asyncHandler(async (req,res,next) => {
         const ngo = await NGO.find();
+
+        var jsonData = ngo;
+        // var jsonObj = JSON.parse(jsonData)
+        // console.log(jsonObj)
+        var jsonContent = JSON.stringify(jsonData);
+        console.log(jsonContent)
+        fs.writeFile(path.join(__dirname, '../_data/ngos.json'), jsonContent, 'utf8', function (err){
+            if(err) throw err.message;
+            console.log("File saved..")
+        })
+
         if(ngo){
             res.status(200).json({
                 status: true,
@@ -19,6 +32,7 @@ exports.getNGOs = asyncHandler(async (req,res,next) => {
                 msg: "Something went wrong"
             })
         }
+
 });
 
 // @desc    GET single NGO
@@ -42,11 +56,17 @@ exports.getNGO = asyncHandler(async (req,res,next) => {
 // @access  Private
 exports.createNGO = asyncHandler(async (req,res,next) => {
         const ngo = await NGO.create(req.body);
-        
+
+        // const filePath = __dirname + '/_data/ngos.json'
+
+        // var writer = fs.createWriteStream(filePath);
+
         res.status(201).json({
             status: true,
             data: ngo
         })
+
+        // writer.write(ngo);
 });
 
 // @desc    PUT single NGO
