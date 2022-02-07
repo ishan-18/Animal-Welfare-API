@@ -4,6 +4,9 @@ const morgan = require('morgan');
 const connectDB = require('./config/db')
 const colors = require('colors');
 const errorHandler = require('./middleware/error');
+const fileupload = require('express-fileupload');
+const path = require('path');
+const cookieParser = require('cookie-parser');
 
 dotenv.config({path: './config/config.env'});
 
@@ -11,13 +14,22 @@ connectDB();
 
 const app = express();
 app.use(express.json())
+app.use(cookieParser())
 
 if(process.env.NODE_ENV === 'development'){
     app.use(morgan('dev'));
 }
 
+app.use(fileupload())
+
+
+//Static upload 
+app.use(express.static(path.join(__dirname, 'public')))
+
 // NGO Routes
 app.use('/api/v1/ngo', require('./routes/ngos'))
+app.use('/api/v1/animal', require('./routes/animals'))
+app.use('/api/v1/auth', require('./routes/auth'))
 
 app.use(errorHandler);
 

@@ -67,10 +67,17 @@ const NgoSchema = new mongoose.Schema({
         type: String,
         default: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCIBX-sNqXAqG-Tua98DZ8WFobwS7s6IExqvmjMCCJpHOltCCA9j3F7J8YYfrNrShQVg4&usqp=CAU'
     },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
     createdAt: {
         type: Date,
         default: Date.now
     }
+},{
+    toJSON: { virtuals: true },
+    toObject: {virtuals: true}
 });
 
 NgoSchema.pre('save', function(next){
@@ -93,9 +100,19 @@ NgoSchema.pre('save', async function(next){
     }
 
     //Do not save address in DB 
-    this.address = undefined;
     
     next();
+})
+
+NgoSchema.pre('remove', async function(next){
+    await this.model('Animal').deleteMany({ngo: this._id});
+})
+
+NgoSchema.virtual('animals',{
+    ref: 'Animal',
+    localField: '_id',
+    foreignField: 'ngo', 
+    justOne: false
 })
 
 module.exports = mongoose.model('NGO', NgoSchema);
