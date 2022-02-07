@@ -30,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/api/v1/ngo', require('./routes/ngos'))
 app.use('/api/v1/animal', require('./routes/animals'))
 app.use('/api/v1/auth', require('./routes/auth'))
+app.use('/api/v1/users', require('./routes/user'))
 
 app.use(errorHandler);
 
