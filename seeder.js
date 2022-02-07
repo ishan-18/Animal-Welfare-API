@@ -8,12 +8,14 @@ dotenv.config({path: './config/config.env'});
 const NGO = require('./models/ngos')
 const Animal = require('./models/animals')
 const User = require('./models/user')
+const Review = require('./models/review')
 
 mongoose.connect(process.env.MONGO_URI)
 
 const ngo = JSON.parse(fs.readFileSync(`${__dirname}/_data/ngos.json`, 'utf-8'))
 const animals = JSON.parse(fs.readFileSync(`${__dirname}/_data/animals.json`, 'utf-8'))
 const user = JSON.parse(fs.readFileSync(`${__dirname}/_data/users.json`, 'utf-8'))
+const review = JSON.parse(fs.readFileSync(`${__dirname}/_data/reviews.json`, 'utf-8'))
 
 //Import in db
 const importData = async () => {
@@ -21,6 +23,7 @@ const importData = async () => {
         await NGO.create(ngo);
         await Animal.create(animals)
         await User.create(user)
+        await Review.create(review)
 
         console.log("Data Imported...".green.inverse);
         process.exit();
@@ -36,6 +39,7 @@ const destroyData = async () => {
         await NGO.deleteMany();
         await Animal.deleteMany();
         await User.deleteMany();
+        await Review.deleteMany();
 
         console.log("Data Destroyed...".red.inverse);
         process.exit();

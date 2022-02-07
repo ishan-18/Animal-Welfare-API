@@ -24,7 +24,7 @@ exports.getNGOs = asyncHandler(async (req,res,next) => {
         let queryStr = JSON.stringify(reqQuery);
 
         queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`)
-        query = NGO.find(JSON.parse(queryStr)).populate('animals', '_id animal_species').populate('user', 'name email')
+        query = NGO.find(JSON.parse(queryStr)).populate('animals', '_id animal_species')
 
         if(req.query.select){
             const fields = req.query.select.split(',').join(' ');
