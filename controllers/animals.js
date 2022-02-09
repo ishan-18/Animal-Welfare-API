@@ -209,7 +209,7 @@ exports.getAnimalsInRadius = asyncHandler(async (req,res,next) => {
 
 // @desc    PUT Animal in MGO
 // @route   PUT /api/v1/animal/ngo/:ngoid
-// @access  Public
+// @access  Private
 exports.getAnimalsRescuedByNGO = asyncHandler(async (req,res,next) => {
     const ngo = await NGO.findById(req.params.ngoid);
 
