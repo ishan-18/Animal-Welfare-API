@@ -66,6 +66,13 @@ app.use('/api/v1/reviews', require('./routes/review'))
 
 app.use(errorHandler);
 
+app.get('/', async (req,res)=>{
+    var options = {
+        root: path.join(__dirname)
+    };
+    res.status(200).sendFile('index.html', options);
+})
+
 const PORT = process.env.PORT || 5000;
 const server = app.listen(PORT, ()=>{
     console.log(`Server Listening in ${process.env.NODE_ENV} on port ${process.env.PORT} 🚀`.yellow.bold)
